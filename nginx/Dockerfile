@@ -18,8 +18,7 @@ RUN wget -q http://nginx.org/download/nginx-1.17.1.tar.gz && \
 RUN curl -sS http://nginx.org/keys/mdounin.key | gpg --import
 
 # Verify signature
-RUN gpg --trusted-key 0x520A9993A1C052F8 --verify nginx-1.17.1.tar.gz.asc && \
-    gpg --trusted-key 0x520A9993A1C052F8 --verify nginx-1.17.1.tar.gz
+RUN gpg --trusted-key 0x520A9993A1C052F8 --verify nginx-1.17.1.tar.gz.asc nginx-1.17.1.tar.gz
 
 # Build and install
 RUN tar -zxf nginx-1.17.1.tar.gz && \
