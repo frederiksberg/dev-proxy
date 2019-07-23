@@ -28,5 +28,7 @@ RUN tar -zxf nginx-1.17.1.tar.gz && \
         --without-http_autoindex_module && \
     make && make install
 
+COPY ./nginx.conf /etc/nginx/nginx.conf
+
 # Run service not as daemon
 CMD ["nginx", "-g", "daemon off;"]
