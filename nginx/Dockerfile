@@ -11,7 +11,8 @@ RUN apt-get update && apt-get install --no-install-recommends --no-install-sugge
     automake gcc libpcre3-dev zlib1g-dev make wget curl gpg
 
 # Get source
-RUN wget -q http://nginx.org/download/nginx-1.17.1.tar.gz{,.asc}
+RUN wget -q http://nginx.org/download/nginx-1.17.1.tar.gz && \
+    wget -q http://nginx.org/download/nginx-1.17.1.tar.gz.asc
 
 # Get signing key
 RUN curl -sS http://nginx.org/keys/mdounin.key | gpg --import
