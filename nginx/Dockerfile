@@ -30,7 +30,7 @@ RUN tar -zxf nginx-1.17.1.tar.gz && \
 
 COPY ./nginx.conf /etc/nginx/nginx.conf
 
-COPY entrypoint.sh /usr/local/bin/
+COPY entrypoint.sh /entrypoint.sh
 
 # Run service not as daemon
-ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
+ENTRYPOINT [ "/entrypoint.sh" ]
