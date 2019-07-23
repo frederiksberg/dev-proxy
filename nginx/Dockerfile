@@ -33,4 +33,4 @@ COPY ./nginx.conf /etc/nginx/nginx.conf
 COPY entrypoint.sh /usr/local/bin/
 
 # Run service not as daemon
-ENTRYPOINT [ "entrypoint.sh" ]
+ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
