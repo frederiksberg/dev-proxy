@@ -20,24 +20,24 @@ RUN wget -q https://www.openssl.org/source/openssl-1.1.1.tar.gz && \
 RUN apt-get purge nginx
 
 # Get source
-RUN wget -q http://nginx.org/download/nginx-1.17.1.tar.gz && \
-    wget -q http://nginx.org/download/nginx-1.17.1.tar.gz.asc
+RUN wget -q http://nginx.org/download/nginx-1.17.3.tar.gz && \
+    wget -q http://nginx.org/download/nginx-1.17.3.tar.gz.asc
 
 # Get signing key
 RUN curl -sS http://nginx.org/keys/mdounin.key | gpg --import
 
 # Verify signature
-RUN gpg --trusted-key 0x520A9993A1C052F8 --verify nginx-1.17.1.tar.gz.asc nginx-1.17.1.tar.gz
+RUN gpg --trusted-key 0x520A9993A1C052F8 --verify nginx-1.17.3.tar.gz.asc nginx-1.17.3.tar.gz
 
 # Build and install
-RUN tar -zxf nginx-1.17.1.tar.gz && \
-    cd nginx-1.17.1 && \
+RUN tar -zxf nginx-1.17.3.tar.gz && \
+    cd nginx-1.17.3 && \
     ./configure --user=nginx --group=nginx \
         --without-http_uwsgi_module \
         --without-http_autoindex_module && \
     make
 
-RUN cd nginx-1.17.1 && make install
+RUN cd nginx-1.17.3 && make install
     
 # Backports repo for newer certbot version
 RUN echo "deb http://deb.debian.org/debian stretch-backports main" >> /etc/apt/sources.list
