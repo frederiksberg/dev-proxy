@@ -34,6 +34,7 @@ RUN tar -zxf nginx-1.17.3.tar.gz && \
     cd nginx-1.17.3 && \
     ./configure --user=nginx --group=nginx \
         --without-http_uwsgi_module \
+        --with-http_ssl_module \
         --without-http_autoindex_module && \
     make
 
