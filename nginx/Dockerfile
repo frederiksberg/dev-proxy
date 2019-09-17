@@ -17,6 +17,8 @@ RUN wget -q https://www.openssl.org/source/openssl-1.1.1.tar.gz && \
     make && make install && rm /usr/bin/openssl && \
     cp /usr/local/bin/openssl /usr/bin/ && openssl version
 
+RUN apt-get purge nginx
+
 # Get source
 RUN wget -q http://nginx.org/download/nginx-1.17.1.tar.gz && \
     wget -q http://nginx.org/download/nginx-1.17.1.tar.gz.asc
