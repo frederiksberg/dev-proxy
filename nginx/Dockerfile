@@ -35,7 +35,7 @@ RUN tar -zxf nginx-1.17.1.tar.gz && \
         --without-http_autoindex_module && \
     make && make install
 
-RUN nginx -v
+# RUN nginx -v
     
 # Backports repo for newer certbot version
 RUN echo "deb http://deb.debian.org/debian stretch-backports main" >> /etc/apt/sources.list
