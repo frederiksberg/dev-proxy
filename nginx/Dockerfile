@@ -8,7 +8,7 @@ RUN set -x && \
 # Install all dependencies
 RUN apt-get update && apt-get install --no-install-recommends --no-install-suggests -y \
     gnupg1 apt-transport-https ca-certificates cron \
-    automake gcc libpcre3-dev zlib1g-dev make wget curl gpg
+    automake gcc libpcre3-dev zlib1g-dev make wget curl gpg openssl
 
 # Get source
 RUN wget -q http://nginx.org/download/nginx-1.17.1.tar.gz && \
@@ -27,12 +27,12 @@ RUN tar -zxf nginx-1.17.1.tar.gz && \
         --without-http_uwsgi_module \
         --without-http_autoindex_module && \
     make && make install
-
+    
 # Backports repo for newer certbot version
 RUN echo "deb http://deb.debian.org/debian stretch-backports main" >> /etc/apt/sources.list
 
 # Install certbot
-RUN apt-get update && apt-get -t stretch-backports install -y certbot python-certbot-nginx python3-pip
+RUN apt-get update && apt-get install -y certbot python-certbot-nginx python3-pip
 
 # Fix broken urllib3
 RUN pip3 install --upgrade --force-reinstall urllib3 requests

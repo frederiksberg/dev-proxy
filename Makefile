@@ -1,19 +1,24 @@
 MAKEFLAGS += --silent
-.PHONY: deploy run build clean kill init
+.PHONY: deploy run build clean kill init check
 
-deploy: build
+deploy: | build clean
 	docker-compose up -d
 
-run: build
+run: | build clean
 	docker-compose up
 	
-init: clean
-
 clean: kill
 	docker-compose rm -f
 
-build: clean
+build:
 	docker-compose build
 
 kill:
 	docker-compose down
+
+check:
+	docker exec reverse_proxy nginx -t
+
+init:
+	./init.sh
+	sed -i 's/listen 443 ssl;/listen 443 ssl http2;/g' ./confs/*.conf
