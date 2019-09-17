@@ -59,6 +59,8 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
 # Renewal
 RUN echo "30 3 * * * certbot renew" | crontab -
 
+RUN cp ls /etc/nginx/modules-enabled/* /usr/local/nginx/modules/
+
 COPY ./nginx.conf /usr/local/nginx/nginx.conf
 
 COPY entrypoint.sh /entrypoint.sh
