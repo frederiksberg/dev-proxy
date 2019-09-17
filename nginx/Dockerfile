@@ -38,6 +38,7 @@ RUN tar -zxf nginx-1.17.3.tar.gz && \
         --without-http_uwsgi_module \
         --with-http_ssl_module \
         --with-openssl=../openssl-1.1.1 \
+        --with-http_auth_pam_module \
         --without-http_autoindex_module && \
     make
 
@@ -58,8 +59,6 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
 
 # Renewal
 RUN echo "30 3 * * * certbot renew" | crontab -
-
-RUN mkdir -p /usr/local/nginx/modules && ls /usr/share/nginx/modules-available
 
 COPY ./nginx.conf /usr/local/nginx/nginx.conf
 
