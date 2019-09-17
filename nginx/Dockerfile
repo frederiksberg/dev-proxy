@@ -10,6 +10,13 @@ RUN apt-get update && apt-get install --no-install-recommends --no-install-sugge
     gnupg1 apt-transport-https ca-certificates cron \
     automake gcc libpcre3-dev zlib1g-dev make wget curl gpg
 
+# Install OpenSSL 1.1.1
+RUN wget -q https://www.openssl.org/source/openssl-1.1.1.tar.gz && \
+    tar -zxf openssl-1.1.1.tar.gz && cd openssl-1.1.1 && \
+    ./config -Wl,-rpath,'$(LIBRPATH)' && \
+    make && make install && rm /usr/bin/openssl && \
+    cp /usr/local/bin/openssl /usr/bin/ && openssl version
+
 # Get source
 RUN wget -q http://nginx.org/download/nginx-1.17.1.tar.gz && \
     wget -q http://nginx.org/download/nginx-1.17.1.tar.gz.asc
@@ -23,11 +30,10 @@ RUN gpg --trusted-key 0x520A9993A1C052F8 --verify nginx-1.17.1.tar.gz.asc nginx-
 # Build and install
 RUN tar -zxf nginx-1.17.1.tar.gz && \
     cd nginx-1.17.1 && \
-    dh_shlibdeps -a --dpkg-shlibdeps-params=--ignore-missing-info --with-openssl-opt=enable-tls1_3 && \
     ./configure --user=nginx --group=nginx \
         --without-http_uwsgi_module \
         --without-http_autoindex_module && \
-    make && make install
+    make && make install && nginx -v
     
 # Backports repo for newer certbot version
 RUN echo "deb http://deb.debian.org/debian stretch-backports main" >> /etc/apt/sources.list
