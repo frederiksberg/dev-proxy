@@ -59,7 +59,7 @@ RUN cd nginx-1.17.3 && make install
 # # Fix broken urllib3
 # RUN pip3 install --upgrade --force-reinstall urllib3 requests
 
-RUN cd ~ && pip3 install virtualenv && virtualenv /env && \
+RUN cd ~ && pip3 install virtualenv setuptools && virtualenv /env && \
     git clone https://github.com/certbot/certbot && \
     cd certbot && pip3 install -r ./readthedocs.org.requirements.txt && \
     export VENV_ARGS="--python $(command -v python3)" && \
