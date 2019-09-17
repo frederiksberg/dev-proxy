@@ -23,10 +23,10 @@ RUN gpg --trusted-key 0x520A9993A1C052F8 --verify nginx-1.17.1.tar.gz.asc nginx-
 # Build and install
 RUN tar -zxf nginx-1.17.1.tar.gz && \
     cd nginx-1.17.1 && \
+    dh_shlibdeps -a --dpkg-shlibdeps-params=--ignore-missing-info --with-openssl-opt=enable-tls1_3 && \
     ./configure --user=nginx --group=nginx \
         --without-http_uwsgi_module \
         --without-http_autoindex_module && \
-        --with-openssl-opt=enable-tls1_3 \
     make && make install
     
 # Backports repo for newer certbot version
