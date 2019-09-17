@@ -33,6 +33,7 @@ RUN gpg --trusted-key 0x520A9993A1C052F8 --verify nginx-1.17.3.tar.gz.asc nginx-
 RUN tar -zxf nginx-1.17.3.tar.gz && \
     cd nginx-1.17.3 && \
     ./configure --user=nginx --group=nginx \
+        --sbin-path=/usr/local/sbin/nginx \
         --without-http_uwsgi_module \
         --with-http_ssl_module \
         --with-openssl=../openssl-1.1.1 \
