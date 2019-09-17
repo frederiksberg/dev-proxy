@@ -4,7 +4,7 @@ services:
     build: ./nginx
     container_name: reverse_proxy
     volumes:
-      - ./confs:/etc/nginx/conf.d:rw
+      - ./confs:/usr/local/nginx/conf.d:rw
       - ./certs:/etc/letsencrypt:rw
       - ./dhparam:/etc/ssl/certs:rw
     networks:
