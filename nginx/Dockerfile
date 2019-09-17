@@ -59,7 +59,7 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
 # Renewal
 RUN echo "30 3 * * * certbot renew" | crontab -
 
-RUN mkdir -p /usr/local/nginx/modules && cp ls /etc/nginx/modules-enabled/* /usr/local/nginx/modules/
+RUN mkdir -p /usr/local/nginx/modules && cp /etc/nginx/modules-enabled/* /usr/local/nginx/modules/
 
 COPY ./nginx.conf /usr/local/nginx/nginx.conf
 
