@@ -8,7 +8,7 @@ RUN set -x && \
 # Install all dependencies
 RUN apt-get update && apt-get install --no-install-recommends --no-install-suggests -y \
     gnupg1 apt-transport-https ca-certificates cron \
-    automake gcc libpcre3-dev zlib1g-dev make wget curl gpg openssl
+    automake gcc libpcre3-dev zlib1g-dev make wget curl gpg
 
 # Get source
 RUN wget -q http://nginx.org/download/nginx-1.17.1.tar.gz && \
@@ -26,6 +26,7 @@ RUN tar -zxf nginx-1.17.1.tar.gz && \
     ./configure --user=nginx --group=nginx \
         --without-http_uwsgi_module \
         --without-http_autoindex_module && \
+        --with-openssl-opt=enable-tls1_3 \
     make && make install
     
 # Backports repo for newer certbot version
