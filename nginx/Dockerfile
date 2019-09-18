@@ -56,12 +56,11 @@ RUN echo "deb http://deb.debian.org/debian stretch-backports main" >> /etc/apt/s
 # # Install certbot
 RUN apt-get update && apt-get install -y certbot
 
-# # Fix broken urllib3
-# RUN pip3 install --upgrade --force-reinstall urllib3 requests
-
 RUN cd ~ && pip3 install virtualenv setuptools && virtualenv /env && \
     git clone https://github.com/certbot/certbot && \
     cd certbot/certbot-nginx && python3 setup.py install
+
+RUN pip3 install --upgrade --force-reinstall urllib3 requests
 
 # Set up nice output of nginx to docker
 RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
