@@ -51,20 +51,17 @@ RUN tar -zxf nginx-1.17.3.tar.gz && \
 RUN cd nginx-1.17.3 && make install
     
 # Backports repo for newer certbot version
-# RUN echo "deb http://deb.debian.org/debian stretch-backports main" >> /etc/apt/sources.list
+RUN echo "deb http://deb.debian.org/debian stretch-backports main" >> /etc/apt/sources.list
 
 # # Install certbot
-# RUN apt-get update && apt-get install -y certbot python-certbot-nginx python3-pip
+RUN apt-get update && apt-get install -y certbot
 
 # # Fix broken urllib3
 # RUN pip3 install --upgrade --force-reinstall urllib3 requests
 
 RUN cd ~ && pip3 install virtualenv setuptools && virtualenv /env && \
     git clone https://github.com/certbot/certbot && \
-    cd certbot && pip3 install -r ./readthedocs.org.requirements.txt && \
-    export VENV_ARGS="--python $(command -v python3)" && \
-    tools/_venv_common.sh -e acme -e . -e certbot-nginx && \
-    ln -s /root/certbot/venv/bin/certbot /usr/bin/certbot
+    cd certbot/certbot-nginx && python3 setup.py install
 
 # Set up nice output of nginx to docker
 RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
